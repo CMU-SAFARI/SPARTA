@@ -89,7 +89,7 @@ As AIE architecture lacks support for automatically gathering and ordering of co
 
 ## Prerequisites
 * [MLIR-AIE](https://github.com/Xilinx/mlir-aie)
-* 
+
 # Citation
 >Gagandeep Singh, Alireza Khodamoradi, Kristof Denolf, Jack Lo, Juan Gómez-Luna, Joseph Melber, Andra Bisca, Henk Corporaal, Onur Mutlu.
 [**"SPARTA: Spatial Acceleration for Efficient and Scalable Horizontal Diffusion Weather Stencil Computation"**](https://arxiv.org/pdf/2303.03509.pdf)
