@@ -1,8 +1,13 @@
+//===- test_1.cpp -----------------------------------------------*- C++ -*-===//
+//
 // (c) 2023 SAFARI Research Group at ETH Zurich, Gagandeep Singh, D-ITET
+//
+// This file is licensed under the MIT License.
+// SPDX-License-Identifier: MIT
+// 
+//
+//===----------------------------------------------------------------------===//
 
-// This file is licensed under the Apache License v2.0 with LLVM Exceptions.
-// See https://llvm.org/LICENSE.txt for license information.
-// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 
 #include "test_library.h"
 #include <cassert>
@@ -100,7 +105,6 @@ int main(int argc, char *argv[]) {
   //   mlir_aie_sync_mem_dev(_xaie, 6); // only used in libaiev2
   //   mlir_aie_sync_mem_dev(_xaie, 7); // only used in libaiev2
 
-#ifdef LIBXAIENGINEV2
   mlir_aie_external_set_addr_ddr_buffer_in_0(
       (u64)ddr_ptr_in_0); // external set address
   mlir_aie_external_set_addr_ddr_buffer_out_0((u64)ddr_ptr_out_0);
@@ -112,8 +116,7 @@ int main(int argc, char *argv[]) {
   //   mlir_aie_external_set_addr_Out_tile1((u64)mem_ptr7);
   //   mlir_aie_configure_shimdma_60(_xaie);
   mlir_aie_configure_shimdma_20(_xaie);
-//   mlir_aie_configure_shimdma_100(_xaie);
-#endif
+  //   mlir_aie_configure_shimdma_100(_xaie);
 
   printf("before core start\n");
   // mlir_aie_print_tile_status(_xaie, 7, 3);

@@ -1,8 +1,13 @@
+//===- test_32.cpp ----------------------------------------------*- C++ -*-===//
+//
 // (c) 2023 SAFARI Research Group at ETH Zurich, Gagandeep Singh, D-ITET
+//
+// This file is licensed under the MIT License.
+// SPDX-License-Identifier: MIT
+// 
+//
+//===----------------------------------------------------------------------===//
 
-// This file is licensed under the Apache License v2.0 with LLVM Exceptions.
-// See https://llvm.org/LICENSE.txt for license information.
-// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 
 #include "test_library.h"
 #include <cassert>
@@ -514,7 +519,6 @@ int main(int argc, char *argv[]) {
   mlir_aie_sync_mem_dev(_xaie, 61);
   mlir_aie_sync_mem_dev(_xaie, 62);
   mlir_aie_sync_mem_dev(_xaie, 63);
-#ifdef LIBXAIENGINEV2
   mlir_aie_external_set_addr_ddr_buffer_in_0((u64)ddr_ptr_in_0);
   mlir_aie_external_set_addr_ddr_buffer_in_1((u64)ddr_ptr_in_1);
   mlir_aie_external_set_addr_ddr_buffer_in_2((u64)ddr_ptr_in_2);
@@ -595,7 +599,6 @@ int main(int argc, char *argv[]) {
   mlir_aie_configure_shimdma_430(_xaie);
   mlir_aie_configure_shimdma_460(_xaie);
   mlir_aie_configure_shimdma_470(_xaie);
-#endif
 
   printf("before core start");
   // mlir_aie_print_tile_status(_xaie, 7, 3);

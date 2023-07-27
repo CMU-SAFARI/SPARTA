@@ -1,8 +1,12 @@
+//===- test.cpp -------------------------------------------------*- C++ -*-===//
+//
 // (c) 2023 SAFARI Research Group at ETH Zurich, Gagandeep Singh, D-ITET
-
-// This file is licensed under the Apache License v2.0 with LLVM Exceptions.
-// See https://llvm.org/LICENSE.txt for license information.
-// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+//
+// This file is licensed under the MIT License.
+// SPDX-License-Identifier: MIT
+// 
+//
+//===----------------------------------------------------------------------===//
 
 #include "test_library.h"
 #include <cassert>
@@ -75,19 +79,18 @@ int main(int argc, char *argv[]) {
   mlir_aie_sync_mem_dev(_xaie, 0); // only used in libaiev2
   mlir_aie_sync_mem_dev(_xaie, 1); // only used in libaiev2
 
-#ifdef LIBXAIENGINEV2
   mlir_aie_external_set_addr_ddr_test_buffer_in0(
       (u64)ddr_ptr_in); // external set address
   mlir_aie_external_set_addr_ddr_test_buffer_out((u64)ddr_ptr_out);
   mlir_aie_configure_shimdma_70(_xaie);
-#endif
 
   printf("before core start\n");
   mlir_aie_print_tile_status(_xaie, 7, 3);
 
   printf("Release lock for accessing DDR.\n");
-  mlir_aie_release_of_0_lock_0(_xaie, 1, 0); // (_xaie,release_value,time_out)
-  mlir_aie_release_of_6_lock_0(_xaie, 0, 0);
+  mlir_aie_release_obj_in_lock_0(_xaie, 1,
+                                 0); // (_xaie,release_value,time_out)
+  mlir_aie_release_obj_out_flux_cons_lock_0(_xaie, 0, 0);
 
   printf("Start cores\n");
   ///// --- start counter-----

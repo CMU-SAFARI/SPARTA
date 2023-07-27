@@ -1,8 +1,12 @@
-# (c) 2023 SAFARI Research Group at ETH Zurich, Gagandeep Singh, D-ITET   
-  
-# This file is licensed under the Apache License v2.0 with LLVM Exceptions.
-# See https://llvm.org/LICENSE.txt for license information.
-# SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+# /scratch/gagandee/mlir-air/utils/mlir-aie/reference_designs/horizontal_diffusion/HDIFF_tri_AIE_objectFIFO_ping_pong_scaled/gen_hdiff_cpp.py -*- Python -*-
+#
+# (c) 2023 SAFARI Research Group at ETH Zurich, Gagandeep Singh, D-ITET
+#
+# This file is licensed under the MIT License.
+# SPDX-License-Identifier: MIT
+# 
+
+
 
 import sys
 import re
@@ -44,11 +48,17 @@ def main():
     cols = arraycols
 
     f = open("test_%d.cpp"%(total_b_block), "w+")
-    f.write("""// (c) 2023 SAFARI Research Group at ETH Zurich, Gagandeep Singh, D-ITET   
-    
-// This file is licensed under the Apache License v2.0 with LLVM Exceptions.
-// See https://llvm.org/LICENSE.txt for license information.
-// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception\n\n\n""")
+    f.write("""//===- hdiff.cc -------------------------------------------------*- C++ -*-===//  
+//  
+// (c) 2023 SAFARI Research Group at ETH Zurich, Gagandeep Singh, D-ITET
+//
+// This file is licensed under the MIT License.
+// SPDX-License-Identifier: MIT
+// 
+//
+//===----------------------------------------------------------------------===//\n\n\n""")
+
+
     def noc_div_two_channel(block):
         # print(block)
         seg=2
@@ -199,7 +209,7 @@ int main(int argc, char *argv[]) {
         f.write("  mlir_aie_sync_mem_dev(_xaie, %d);\n"%(i) )
     for i in range (0, total_b_block): # col 0 is reserved in aie
         f.write("  mlir_aie_sync_mem_dev(_xaie, %d);\n"%(total_b_block+i) )
-    f.write("#ifdef LIBXAIENGINEV2\n")
+
     for i in range (0, total_b_block): # col 0 is reserved in aie
         f.write("    mlir_aie_external_set_addr_ddr_buffer_in_%d((u64)ddr_ptr_in_%d); \n"%(i,i) )
     
@@ -212,7 +222,6 @@ int main(int argc, char *argv[]) {
             if(block%2==0): 
                 shim_place=noc_div_two_channel(block)
                 f.write("    mlir_aie_configure_shimdma_%d0(_xaie);\n"%(shim_place))
-    f.write("#endif\n")
     f.write('''
   printf("before core start");
   // mlir_aie_print_tile_status(_xaie, 7, 3);

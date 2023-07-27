@@ -1,8 +1,13 @@
-// (c) 2023 SAFARI Research Group at ETH Zurich, Gagandeep Singh, D-ITET   
-  
-// This file is licensed under the Apache License v2.0 with LLVM Exceptions.
-// See https://llvm.org/LICENSE.txt for license information.
-// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+//===- aie_fp32.mlir -------------------------------------------*- MLIR -*-===//
+//
+// (c) 2023 SAFARI Research Group at ETH Zurich, Gagandeep Singh, D-ITET
+//
+// This file is licensed under the MIT License.
+// SPDX-License-Identifier: MIT
+// 
+//
+//===----------------------------------------------------------------------===//
+
 
 module @hdiff_multi_AIE{
 
@@ -13,9 +18,9 @@ module @hdiff_multi_AIE{
   %lock71_14 = AIE.lock(%t71, 14) { sym_name = "lock71_14" }
   %lock72_14 = AIE.lock(%t72, 14) { sym_name = "lock72_14" }
 
-  %obj_fifo_in = AIE.objectFifo.createObjectFifo(%t70, {%t71,%t72}, 6) {sym_name = "" }: !AIE.objectFifo<memref<256xf32>>
-  %obj_fifo_out_lap = AIE.objectFifo.createObjectFifo(%t71, {%t72}, 4){sym_name = "obj_out_lap" } : !AIE.objectFifo<memref<256xf32>>
-  %obj_fifo_out_flux = AIE.objectFifo.createObjectFifo(%t72, {%t70}, 2){sym_name = "obj_out_flux" } : !AIE.objectFifo<memref<256xf32>>
+  %obj_fifo_in = AIE.objectFifo.createObjectFifo(%t70, {%t71,%t72}, 6 : i32) {sym_name = "" }: !AIE.objectFifo<memref<256xf32>>
+  %obj_fifo_out_lap = AIE.objectFifo.createObjectFifo(%t71, {%t72}, 4 : i32){sym_name = "obj_out_lap" } : !AIE.objectFifo<memref<256xf32>>
+  %obj_fifo_out_flux = AIE.objectFifo.createObjectFifo(%t72, {%t70}, 2 : i32){sym_name = "obj_out_flux" } : !AIE.objectFifo<memref<256xf32>>
    // DDR buffer
   %ext_buffer_in0  = AIE.external_buffer  {sym_name = "ddr_test_buffer_in0"}: memref<1536 x f32>
   %ext_buffer_out = AIE.external_buffer  {sym_name = "ddr_test_buffer_out"}: memref<512 x f32>
